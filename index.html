@@ -5,53 +5,39 @@
 <title>Habit Tracker</title>
 
 <style>
-body { font-family: sans-serif; padding: 20px; }
-.habit { margin-bottom: 15px; }
-.days { display: flex; gap: 5px; flex-wrap: wrap; }
+.days { display:flex; gap:5px; flex-wrap:wrap; }
 </style>
 </head>
 
 <body>
 
-<h2>Habit Tracker</h2>
+<h2>TEST</h2>
 <div id="app"></div>
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbxvRzsVPGmnYK62Mnj2PX0uek_TkB1UkGwN-yJzvDkGWDNR_n7ZIHa2_6o7j-k5Glxs/exec";
+const habits = ["운동", "독서", "공부"];
 
-fetch(API_URL)
-  .then(res => res.json())
-  .then(data => {
-    const app = document.getElementById("app");
+const app = document.getElementById("app");
 
-    // 습관 부분만 가져오기 (9행부터)
-    const habits = data.slice(8, 20);
+habits.forEach(habit => {
+  const div = document.createElement("div");
 
-    habits.forEach(row => {
-      const habitName = row[0];
+  const title = document.createElement("h4");
+  title.innerText = habit;
 
-      const div = document.createElement("div");
-      div.className = "habit";
+  const days = document.createElement("div");
+  days.className = "days";
 
-      const title = document.createElement("div");
-      title.innerText = habitName;
+  for (let i = 0; i < 10; i++) {
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    days.appendChild(checkbox);
+  }
 
-      const days = document.createElement("div");
-      days.className = "days";
-
-      // 1~31일 체크박스 생성
-      for (let i = 1; i <= 31; i++) {
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-
-        days.appendChild(checkbox);
-      }
-
-      div.appendChild(title);
-      div.appendChild(days);
-      app.appendChild(div);
-    });
-  });
+  div.appendChild(title);
+  div.appendChild(days);
+  app.appendChild(div);
+});
 </script>
 
 </body>
